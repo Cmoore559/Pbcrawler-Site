@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PBcrawler</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #1e1e1e;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      color: white;
+    }
+    .header-container {
+      height: 120px;
+      background-color: #1e1e1e;
+      overflow: hidden;
+    }
+    .header-logo {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    nav {
+      background-color: #000;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+    }
+    nav a {
+      color: #DB3B64;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.4rem 1rem;
+      border: 2px solid #DB3B64;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      height: 3px;
+      background-color: #DB3B64;
+      transition: transform 0.3s ease;
+      transform: scaleX(0);
+      transform-origin: left;
+      margin-top: 3px;
+    }
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
+    nav a:hover {
+      background-color: #DB3B64;
+      color: black;
+      box-shadow: 0 0 10px #DB3B64, 0 0 20px #DB3B64;
+    }
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    .hero-poster {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    .checkout-button {
+      background-color: #DB3B64;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .gallery-placeholder {
+      width: 120px;
+      height: 120px;
+      background-color: black;
+      border: 2px dashed #DB3B64;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(219, 59, 100, 0.3);
+    }
+    .faq {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .faq-item {
+      margin-bottom: 1rem;
+    }
+    .faq-question {
+      color: #DB3B64;
+      font-weight: bold;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container">
+    <img src="pbcrawler-header.png" alt="PBcrawler Logo" class="header-logo" onerror="this.style.display='none'" />
+  </div>
+  <nav>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('booking')">Book</a>
+    <a href="#" onclick="showPage('gallery')">Gallery</a>
+    <a href="#" onclick="showPage('faq')">FAQ</a>
+  </nav>
+
+  <section id="home" class="page active">
+    <img class="hero-poster" src="gorilla-poster.png" alt="PBcrawler Promo Poster" onerror="this.style.display='none'" />
+  </section>
+
+  <section id="booking" class="page">
+    <div class="overlay">
+      <h1>Book Your Ride</h1>
+      <p>$22 Round Trip – SDSU ↔ PB<br>Thurs, Fri, Sat Nights</p>
+      <button class="checkout-button" id="checkout-button">PAY WITH CARD</button>
+    </div>
+  </section>
+
+  <section id="gallery" class="page">
+    <div class="gallery">
+      <div class="gallery-placeholder"></div>
+      <div class="gallery-placeholder"></div>
+      <div class="gallery-placeholder"></div>
+      <div class="gallery-placeholder"></div>
+      <div class="gallery-placeholder"></div>
+      <div class="gallery-placeholder"></div>
+    </div>
+  </section>
+
+  <section id="faq" class="page">
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-question">Do I need to be 21+ to ride?</div>
+        <div class="faq-answer">Nope! Just bring a college ID and good vibes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Are drinks provided?</div>
+        <div class="faq-answer">No alcohol is provided or allowed onboard.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I get a refund?</div>
+        <div class="faq-answer">Refunds available up to 24 hours before your scheduled ride.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <iframe src="https://snapwidget.com/embed/123456" width="100%" height="200" frameborder="0" scrolling="no"></iframe>
+    <p>Contact us: <a href="mailto:chris@pbcrawler.com" style="color:#DB3B64">chris@pbcrawler.com</a></p>
+  </div>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
+    document.getElementById('checkout-button').addEventListener('click', () => {
+      fetch('https://your-server.com/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+      .then(res => res.json())
+      .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
+      .catch(err => console.error(err));
+    });
+
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
