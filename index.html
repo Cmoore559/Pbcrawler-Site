@@ -249,7 +249,7 @@
 
   function moveToSlide(index) {
     currentSlide = (index + totalSlides) % totalSlides;
-    track.style.transform = translateX(-${100 * currentSlide}%);
+    track.style.transform = `translateX(-${100 * currentSlide}%)`;
     updateDots();
   }
 
