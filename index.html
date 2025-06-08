@@ -107,6 +107,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       // === STRIPE CHECKOUT ===
+
+      
       const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
 
       const checkoutBtn = document.getElementById('checkout-button');
@@ -164,6 +166,8 @@
       window.addEventListener('resize', () => moveToSlide(currentSlide));
       moveToSlide(0);
     });
+    <script src="https://js.stripe.com/v3/"></script>
+  
   </script>
 </body>
 </html>
