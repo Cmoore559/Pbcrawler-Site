@@ -243,39 +243,33 @@ x<!DOCTYPE html>
 
 <script>
   const track = document.querySelector('.carousel-track');
-  const slides = Array.from(track.children);
+  const slides = document.querySelectorAll('.carousel-slide');
+  const totalSlides = slides.length;
   let currentSlide = 0;
 
   function moveToSlide(index) {
-    const slideWidth = track.offsetWidth;
-    currentSlide = (index + slides.length) % slides.length;
-    track.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+    currentSlide = (index + totalSlides) % totalSlides;
+    track.style.transform = `translateX(-${100 * currentSlide}%)`;
     updateDots();
   }
 
   function updateDots() {
     const dots = document.querySelectorAll('.dot');
     dots.forEach((dot, i) => {
-      dot.style.opacity = i === currentSlide ? '1' : '0.5';
+      dot.style.opacity = i === currentSlide ? '1' : '0.4';
     });
   }
 
-  // Handle resizing
-  window.addEventListener('resize', () => {
-    moveToSlide(currentSlide);
-  });
-
-  // Swipe logic
-  let startX = 0;
-  let endX = 0;
+  // Touch swipe logic
+  let startX = null;
 
   track.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
-  }, { passive: true });
+  });
 
-  track.addEventListener('touchend', (e) => {
-    endX = e.changedTouches[0].clientX;
-    const deltaX = endX - startX;
+  track.addEventListener('touchmove', (e) => {
+    if (!startX) return;
+    const deltaX = e.touches[0].clientX - startX;
 
     if (Math.abs(deltaX) > 50) {
       if (deltaX < 0) {
@@ -283,11 +277,18 @@ x<!DOCTYPE html>
       } else {
         moveToSlide(currentSlide - 1);
       }
+      startX = null; // Reset for next swipe
     }
   });
 
-  moveToSlide(0); // init
+  track.addEventListener('touchend', () => {
+    startX = null;
+  });
+
+  window.addEventListener('resize', () => moveToSlide(currentSlide));
+  moveToSlide(0);
 </script>
+  
   <section id="faq" class="page">
     <div class="faq">
       <div class="faq-item">
