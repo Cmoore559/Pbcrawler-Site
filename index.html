@@ -173,57 +173,51 @@
     }
 
     // Carousel Logic
-     const track = document.querySelector('.carousel-track');
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.dot');
-  const totalSlides = slides.length;
-  let currentSlide = 0;
+      const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
 
-  function moveToSlide(index) {
-    currentSlide = (index + totalSlides) % totalSlides;
-    const width = track.offsetWidth;
-    track.style.transform = `translateX(-${currentSlide * 100}%)`;
-    updateDots();
-  }
-
-  function updateDots() {
-    dots.forEach((dot, i) => {
-      dot.style.opacity = i === currentSlide ? '1' : '0.4';
-    });
-  }
-
-  // Swipe handling
-  let startX = null;
-  let isSwiping = false;
-
-  track.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isSwiping = true;
-  });
-
-  track.addEventListener('touchmove', (e) => {
-    if (!isSwiping || startX === null) return;
-
-    const deltaX = e.touches[0].clientX - startX;
-
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX < 0) {
-        moveToSlide(currentSlide + 1);
-      } else {
-        moveToSlide(currentSlide - 1);
-      }
-      startX = null;
-      isSwiping = false;
+    function moveToSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      const offset = -currentSlide * 100;
+      track.style.transform = translateX(${offset}%);
+      updateDots();
     }
-  });
 
-  track.addEventListener('touchend', () => {
-    startX = null;
-    isSwiping = false;
-  });
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.style.opacity = i === currentSlide ? '1' : '0.4';
+      });
+    }
 
-  window.addEventListener('resize', () => moveToSlide(currentSlide));
-  moveToSlide(0);
+    let startX = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.touches[0].clientX - startX;
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX < 0) moveToSlide(currentSlide + 1);
+        else moveToSlide(currentSlide - 1);
+        isDragging = false;
+      }
+    });
+
+    track.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('resize', () => moveToSlide(currentSlide));
+    moveToSlide(0);
+
+
 </script>
 </body>
 </html>
