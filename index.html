@@ -236,7 +236,15 @@
       dot.style.opacity = i === currentSlide ? '1' : '0.4';
     });
   }
-
+    
+  // === ARROW BUTTON EVENTS ===
+  document.getElementById('prev-slide').addEventListener('click', () => {
+    moveToSlide(currentSlide - 1);
+  });
+  
+  document.getElementById('next-slide').addEventListener('click', () => {
+    moveToSlide(currentSlide + 1);
+  });
 
   // === WINDOW RESIZE LISTENER ===
   window.addEventListener('resize', () => moveToSlide(currentSlide));
