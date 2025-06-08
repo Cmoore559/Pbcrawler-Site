@@ -1,14 +1,12 @@
-<!-- ====== HTML Document Start ====== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ====== HEAD SECTION ====== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PBcrawler</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
-    /* ====== GLOBAL STYLES ====== */
+    /* Global Styles */
     html, body {
       margin: 0;
       padding: 0;
@@ -92,47 +90,62 @@
       user-select: none;
       z-index: 2;
     }
-    .left-arrow {
-      left: 10px;
-    }
-    .right-arrow {
-      right: 10px;
-    }
+    .left-arrow { left: 10px; }
+    .right-arrow { right: 10px; }
   </style>
 </head>
 <body>
-  <!-- ====== HTML Content (unchanged) goes here... ====== -->
-
-  <!-- ====== JAVASCRIPT ====== -->
+  <div class="header-container">
+    <img src="pbcrawler-header.png" class="header-logo" alt="PBcrawler Logo" />
+  </div>
+  <nav>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('buy-ticket')">Buy Ticket</a>
+    <a href="#" onclick="showPage('route')">Route</a>
+    <a href="#" onclick="showPage('highlights')">Highlights</a>
+    <a href="#" onclick="showPage('faq')">FAQ</a>
+  </nav>
+  <section id="home" class="page active">
+    <img src="gorilla-poster.png" class="hero-poster" alt="Promo Poster" />
+  </section>
+  <section id="buy-ticket" class="page">
+    <div style="text-align: center; padding: 2rem 1rem 1.5rem;">
+      <img src="booking-info-block.png" style="max-width: 400px; width: 100%; display: block; margin: 0 auto 1.5rem;" alt="Booking Info" />
+      <button class="checkout-button" id="checkout-button">PAY WITH CARD</button>
+      <p style="margin-top: 1rem; font-size: 0.8rem; color: #aaa;">Not responsible for bad decisions made en route.</p>
+    </div>
+  </section>
+  <section id="highlights" class="page">
+    <div style="text-align: center; padding-top: 2rem;">
+      <h2 style="font-family: 'Bebas Neue', cursive; font-size: 1.8rem; color: #DB3B64;">Highlights from the Bus</h2>
+    </div>
+    <div class="carousel" style="position: relative; max-width: 90%; margin: 2rem auto; overflow: hidden;">
+      <div class="carousel-track" id="carousel-track" style="display: flex; transition: transform 0.4s ease;">
+        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights1.png" style="width: 100%; border-radius: 8px;" /></div>
+        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights2.png" style="width: 100%; border-radius: 8px;" /></div>
+        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights3.png" style="width: 100%; border-radius: 8px;" /></div>
+        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights4.png" style="width: 100%; border-radius: 8px;" /></div>
+        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights5.png" style="width: 100%; border-radius: 8px;" /></div>
+      </div>
+      <div class="carousel-arrow left-arrow" onclick="moveToSlide(currentSlide - 1)">&#10094;</div>
+      <div class="carousel-arrow right-arrow" onclick="moveToSlide(currentSlide + 1)">&#10095;</div>
+    </div>
+    <div style="text-align: center; margin-top: 1rem;">
+      <span class="dot" onclick="moveToSlide(0)"></span>
+      <span class="dot" onclick="moveToSlide(1)"></span>
+      <span class="dot" onclick="moveToSlide(2)"></span>
+      <span class="dot" onclick="moveToSlide(3)"></span>
+      <span class="dot" onclick="moveToSlide(4)"></span>
+    </div>
+  </section>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // === STRIPE CHECKOUT ===
-
-      
-      const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
-
-      const checkoutBtn = document.getElementById('checkout-button');
-      if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-          fetch('https://your-server.com/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
-          })
-          .then(res => res.json())
-          .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
-          .catch(err => console.error(err));
-        });
-      }
-
-      // === PAGE SWITCHING LOGIC ===
-      window.showPage = function(id) {
+    document.addEventListener('DOMContentLoaded', () => {
+      function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id)?.classList.add('active');
       }
 
-      // === CAROUSEL SETUP ===
-      const track = document.querySelector('.carousel-track');
+      const track = document.querySelector('#carousel-track');
       const slides = document.querySelectorAll('.carousel-slide');
       const dots = document.querySelectorAll('.dot');
       const totalSlides = slides.length;
@@ -145,29 +158,15 @@
         updateDots();
       }
 
-      window.moveToSlide = moveToSlide;
-
       function updateDots() {
         dots.forEach((dot, i) => {
           dot.style.opacity = i === currentSlide ? '1' : '0.4';
         });
       }
 
-      // === ARROW BUTTON EVENTS ===
-      document.getElementById('prev-slide')?.addEventListener('click', () => {
-        moveToSlide(currentSlide - 1);
-      });
-
-      document.getElementById('next-slide')?.addEventListener('click', () => {
-        moveToSlide(currentSlide + 1);
-      });
-
-      // === INITIALIZE CAROUSEL ===
-      window.addEventListener('resize', () => moveToSlide(currentSlide));
+      window.moveToSlide = moveToSlide;
       moveToSlide(0);
     });
-    <script src="https://js.stripe.com/v3/"></script>
-  
   </script>
 </body>
 </html>
