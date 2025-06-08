@@ -25,13 +25,14 @@
       object-fit: cover;
       display: block;
     }
+    
     nav {
       background-color: #000;
       padding: 1rem;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
       font-family: 'Bebas Neue', cursive;
       font-size: 1.2rem;
       border-top: 4px solid #DB3B64;
@@ -39,15 +40,19 @@
     }
 
     nav a {
+      flex: 1 1 auto;
+      text-align: center;
+      min-width: 80px;
+      max-width: 120px;
       color: #DB3B64;
       font-family: 'Bebas Neue', cursive;
       text-decoration: none;
-      padding: 0.5rem 1.2rem;
+      padding: 0.6rem 0.8rem;
       border: 2px solid #DB3B64;
-      border-radius: 0; /* <- square corners */
+      border-radius: 0;
       transition: all 0.2s ease-in-out;
     }
-    nav a::after {
+      nav a::after {
       content: "";
       display: block;
       height: 3px;
