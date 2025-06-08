@@ -243,14 +243,13 @@ x<!DOCTYPE html>
 
 <script>
   const track = document.querySelector('.carousel-track');
-  const slides = track.children;
-  const totalSlides = slides.length;
+  const slides = Array.from(track.children);
   let currentSlide = 0;
 
   function moveToSlide(index) {
-    currentSlide = (index + totalSlides) % totalSlides;
-    const width = document.querySelector('.carousel').offsetWidth;
-    track.style.transform = `translateX(-${width * currentSlide}px)`;
+    const slideWidth = track.offsetWidth;
+    currentSlide = (index + slides.length) % slides.length;
+    track.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
     updateDots();
   }
 
@@ -261,7 +260,12 @@ x<!DOCTYPE html>
     });
   }
 
-  // ✅ Final, fixed swipe logic
+  // Handle resizing
+  window.addEventListener('resize', () => {
+    moveToSlide(currentSlide);
+  });
+
+  // Swipe logic
   let startX = 0;
   let endX = 0;
 
@@ -269,28 +273,21 @@ x<!DOCTYPE html>
     startX = e.touches[0].clientX;
   }, { passive: true });
 
-  track.addEventListener('touchmove', (e) => {
-    endX = e.touches[0].clientX;
-  }, { passive: true });
-
-  track.addEventListener('touchend', () => {
+  track.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
     const deltaX = endX - startX;
 
     if (Math.abs(deltaX) > 50) {
       if (deltaX < 0) {
-        moveToSlide(currentSlide + 1); // swipe left
+        moveToSlide(currentSlide + 1);
       } else {
-        moveToSlide(currentSlide - 1); // swipe right
+        moveToSlide(currentSlide - 1);
       }
     }
-    startX = 0;
-    endX = 0;
   });
 
-  window.addEventListener('resize', () => moveToSlide(currentSlide));
-  moveToSlide(0); // initialize on load
+  moveToSlide(0); // init
 </script>
-
   <section id="faq" class="page">
     <div class="faq">
       <div class="faq-item">
