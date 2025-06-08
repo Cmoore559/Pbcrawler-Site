@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet" />
    <!-- 1) Load Stripe.js -->
   <script src="https://js.stripe.com/v3/"></script>
+
+  
   <style>
     /* ====== GLOBAL STYLES ====== */
     html, body {
@@ -102,6 +104,17 @@
     
     .right-arrow {
       right: 10px;
+    }
+     .carousel-slide {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .carousel-slide img,
+    .carousel-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
   </style>
 </head>
