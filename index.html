@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+x<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -241,7 +241,7 @@
   }
 </style>
 
-    <script>
+<script>
   const track = document.querySelector('.carousel-track');
   const slides = track.children;
   const totalSlides = slides.length;
@@ -261,19 +261,20 @@
     });
   }
 
-  // Swipe handling
+  // ✅ Final, fixed swipe logic
   let startX = 0;
-  let isSwiping = false;
+  let endX = 0;
 
   track.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
-    isSwiping = true;
-  });
+  }, { passive: true });
 
   track.addEventListener('touchmove', (e) => {
-    if (!isSwiping) return;
-    const currentX = e.touches[0].clientX;
-    const deltaX = currentX - startX;
+    endX = e.touches[0].clientX;
+  }, { passive: true });
+
+  track.addEventListener('touchend', () => {
+    const deltaX = endX - startX;
 
     if (Math.abs(deltaX) > 50) {
       if (deltaX < 0) {
@@ -281,16 +282,13 @@
       } else {
         moveToSlide(currentSlide - 1); // swipe right
       }
-      isSwiping = false; // prevent multiple triggers in one swipe
     }
-  });
-
-  track.addEventListener('touchend', () => {
-    isSwiping = false;
+    startX = 0;
+    endX = 0;
   });
 
   window.addEventListener('resize', () => moveToSlide(currentSlide));
-  moveToSlide(0); // initialize
+  moveToSlide(0); // initialize on load
 </script>
 
   <section id="faq" class="page">
