@@ -251,6 +251,14 @@
 
   // === INITIALIZE CAROUSEL POSITION ===
   moveToSlide(0);
+
+  document.getElementById('prev-slide')?.addEventListener('click', () => {
+  moveToSlide(currentSlide - 1);
+});
+
+  document.getElementById('next-slide')?.addEventListener('click', () => {
+  moveToSlide(currentSlide + 1);
+});
 </script>
 </body>
 </html>
