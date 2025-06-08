@@ -79,6 +79,28 @@
       display: inline-block;
       cursor: pointer;
     }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      z-index: 2;
+    }
+    
+    .left-arrow {
+      left: 10px;
+    }
+    
+    .right-arrow {
+      right: 10px;
+    }
   </style>
 </head>
 <body>
@@ -116,17 +138,23 @@
     <div style="text-align: center; padding-top: 2rem;">
       <h2 style="font-family: 'Bebas Neue', cursive; font-size: 1.8rem; color: #DB3B64;">Highlights from the Bus</h2>
     </div>
-    <div class="carousel" style="position: relative; max-width: 90%; margin: 2rem auto; overflow: hidden;">
-      <div class="carousel-track" style="display: flex; width: 100%; transition: transform 0.4s ease;">
-        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights1.png" style="width: 100%; border-radius: 8px;" /></div>
-        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights2.png" style="width: 100%; border-radius: 8px;" /></div>
-        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights3.png" style="width: 100%; border-radius: 8px;" /></div>
-        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights4.png" style="width: 100%; border-radius: 8px;" /></div>
-        <div class="carousel-slide" style="min-width: 100%;"><img src="highlights5.png" style="width: 100%; border-radius: 8px;" /></div>
-        <div class="carousel-slide" style="min-width: 100%;"><video controls style="width: 100%; border-radius: 8px;"><source src="highlight6.mp4" type="video/mp4"></video></div>
-        <div class="carousel-slide" style="min-width: 100%;"><video controls style="width: 100%; border-radius: 8px;"><source src="highlight7.mp4" type="video/mp4"></video></div>
-      </div>
+      <!-- Carousel Container with Arrows -->
+  <div class="carousel" style="position: relative; max-width: 90%; margin: 2rem auto; overflow: hidden;">
+    <div class="carousel-track" style="display: flex; transition: transform 0.4s ease;">
+      <div class="carousel-slide" style="min-width: 100%;"><img src="highlights1.png" style="width: 100%; border-radius: 8px;" /></div>
+      <div class="carousel-slide" style="min-width: 100%;"><img src="highlights2.png" style="width: 100%; border-radius: 8px;" /></div>
+      <div class="carousel-slide" style="min-width: 100%;"><img src="highlights3.png" style="width: 100%; border-radius: 8px;" /></div>
+      <div class="carousel-slide" style="min-width: 100%;"><img src="highlights4.png" style="width: 100%; border-radius: 8px;" /></div>
+      <div class="carousel-slide" style="min-width: 100%;"><img src="highlights5.png" style="width: 100%; border-radius: 8px;" /></div>
+      <div class="carousel-slide" style="min-width: 100%;"><video controls style="width: 100%; border-radius: 8px;"><source src="highlight6.mp4" type="video/mp4"></video></div>
+      <div class="carousel-slide" style="min-width: 100%;"><video controls style="width: 100%; border-radius: 8px;"><source src="highlight7.mp4" type="video/mp4"></video></div>
     </div>
+  
+    <!-- Left Arrow -->
+    <div class="carousel-arrow left-arrow" onclick="moveToSlide(currentSlide - 1)">&#10094;</div>
+    <!-- Right Arrow -->
+    <div class="carousel-arrow right-arrow" onclick="moveToSlide(currentSlide + 1)">&#10095;</div>
+  </div>
     <div style="text-align: center; margin-top: 1rem;">
       <span class="dot" onclick="moveToSlide(0)"></span>
       <span class="dot" onclick="moveToSlide(1)"></span>
@@ -168,44 +196,55 @@
 
   <!-- ====== JAVASCRIPT ====== -->
   <script>
-    const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
-    document.getElementById('checkout-button').addEventListener('click', () => {
-      fetch('https://your-server.com/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({})
-      })
-      .then(res => res.json())
-      .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
-      .catch(err => console.error(err));
+  // Stripe Checkout
+  const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
+  document.getElementById('checkout-button').addEventListener('click', () => {
+    fetch('https://your-server.com/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    })
+    .then(res => res.json())
+    .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
+    .catch(err => console.error(err));
+  });
+
+  // Navigation
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id)?.classList.add('active');
+  }
+
+  // Carousel Logic with arrows
+  const track = document.querySelector('.carousel-track');
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.dot');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+
+  function moveToSlide(index) {
+    currentSlide = (index + totalSlides) % totalSlides;
+    const offset = -currentSlide * 100;
+    track.style.transform = `translateX(${offset}%)`;
+    updateDots();
+  }
+
+  function updateDots() {
+    dots.forEach((dot, i) => {
+      dot.style.opacity = i === currentSlide ? '1' : '0.4';
     });
+  }
 
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id)?.classList.add('active');
-    }
+  // Add event listeners for arrow buttons
+  document.getElementById('prev-slide')?.addEventListener('click', () => {
+    moveToSlide(currentSlide - 1);
+  });
+  document.getElementById('next-slide')?.addEventListener('click', () => {
+    moveToSlide(currentSlide + 1);
+  });
 
-    const track = document.querySelector('.carousel-track');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.dot');
-    const totalSlides = slides.length;
-    let currentSlide = 0;
-
-    function moveToSlide(index) {
-      currentSlide = (index + totalSlides) % totalSlides;
-      const offset = -currentSlide * 100;
-      track.style.transform = `translateX(${offset}%)`;
-      updateDots();
-    }
-
-    function updateDots() {
-      dots.forEach((dot, i) => {
-        dot.style.opacity = i === currentSlide ? '1' : '0.4';
-      });
-    }
-
-    window.addEventListener('resize', () => moveToSlide(currentSlide));
-    moveToSlide(0);
-  </script>
+  window.addEventListener('resize', () => moveToSlide(currentSlide));
+  moveToSlide(0);
+</script>
 </body>
 </html>
