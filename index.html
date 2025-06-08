@@ -196,8 +196,9 @@
 
   <!-- ====== JAVASCRIPT ====== -->
   <script>
-  // Stripe Checkout
+  // === STRIPE CHECKOUT ===
   const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
+
   document.getElementById('checkout-button').addEventListener('click', () => {
     fetch('https://your-server.com/create-checkout-session', {
       method: 'POST',
@@ -209,19 +210,20 @@
     .catch(err => console.error(err));
   });
 
-  // Navigation
+  // === PAGE SWITCHING LOGIC ===
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id)?.classList.add('active');
   }
 
-  // Carousel Logic with arrows
+  // === CAROUSEL SETUP ===
   const track = document.querySelector('.carousel-track');
   const slides = document.querySelectorAll('.carousel-slide');
   const dots = document.querySelectorAll('.dot');
   const totalSlides = slides.length;
   let currentSlide = 0;
 
+  // === CAROUSEL NAVIGATION ===
   function moveToSlide(index) {
     currentSlide = (index + totalSlides) % totalSlides;
     const offset = -currentSlide * 100;
@@ -235,15 +237,19 @@
     });
   }
 
-  // Add event listeners for arrow buttons
+  // === ARROW BUTTON EVENTS ===
   document.getElementById('prev-slide')?.addEventListener('click', () => {
     moveToSlide(currentSlide - 1);
   });
+
   document.getElementById('next-slide')?.addEventListener('click', () => {
     moveToSlide(currentSlide + 1);
   });
 
+  // === WINDOW RESIZE LISTENER ===
   window.addEventListener('resize', () => moveToSlide(currentSlide));
+
+  // === INITIALIZE CAROUSEL POSITION ===
   moveToSlide(0);
 </script>
 </body>
