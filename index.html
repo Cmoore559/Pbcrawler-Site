@@ -175,20 +175,39 @@
   <!-- Carousel Container -->
   <div class="carousel" style="position: relative; max-width: 90%; margin: 2rem auto; overflow: hidden; touch-action: pan-y;">
     <div class="carousel-track" style="display: flex; transition: transform 0.4s ease;">
-      <!-- Slide 1 - Image -->
+      <!-- Slide 1 -->
       <div class="carousel-slide" style="min-width: 100%;">
-        <img src="highlight1.jpg" alt="Bus Highlight 1" style="width: 100%; display: block; border-radius: 8px;" />
+        <img src="highlights1.png" alt="Highlight 1" style="width: 100%; display: block; border-radius: 8px;" />
       </div>
-      <!-- Slide 2 - Video -->
+      <!-- Slide 2 -->
+      <div class="carousel-slide" style="min-width: 100%;">
+        <img src="highlights2.png" alt="Highlight 2" style="width: 100%; display: block; border-radius: 8px;" />
+      </div>
+      <!-- Slide 3 -->
+      <div class="carousel-slide" style="min-width: 100%;">
+        <img src="highlights3.png" alt="Highlight 3" style="width: 100%; display: block; border-radius: 8px;" />
+      </div>
+      <!-- Slide 4 -->
+      <div class="carousel-slide" style="min-width: 100%;">
+        <img src="highlights4.png" alt="Highlight 4" style="width: 100%; display: block; border-radius: 8px;" />
+      </div>
+      <!-- Slide 5 -->
+      <div class="carousel-slide" style="min-width: 100%;">
+        <img src="highlights5.png" alt="Highlight 5" style="width: 100%; display: block; border-radius: 8px;" />
+      </div>
+      <!-- Slide 6 - Video 1 -->
       <div class="carousel-slide" style="min-width: 100%;">
         <video controls style="width: 100%; border-radius: 8px;">
-          <source src="highlight2.mp4" type="video/mp4">
+          <source src="highlight6.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
-      <!-- Slide 3 - Image -->
+      <!-- Slide 7 - Video 2 -->
       <div class="carousel-slide" style="min-width: 100%;">
-        <img src="highlight3.jpg" alt="Bus Highlight 2" style="width: 100%; display: block; border-radius: 8px;" />
+        <video controls style="width: 100%; border-radius: 8px;">
+          <source src="highlight7.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   </div>
@@ -198,6 +217,10 @@
     <span class="dot" onclick="moveToSlide(0)"></span>
     <span class="dot" onclick="moveToSlide(1)"></span>
     <span class="dot" onclick="moveToSlide(2)"></span>
+    <span class="dot" onclick="moveToSlide(3)"></span>
+    <span class="dot" onclick="moveToSlide(4)"></span>
+    <span class="dot" onclick="moveToSlide(5)"></span>
+    <span class="dot" onclick="moveToSlide(6)"></span>
   </div>
 
   <!-- Submit Link -->
@@ -243,7 +266,7 @@
     if (Math.abs(deltaX) > 50) {
       if (deltaX > 0 && currentSlide > 0) {
         moveToSlide(currentSlide - 1);
-      } else if (deltaX < 0 && currentSlide < track.children.length - 1) {
+      } else if (deltaX < 0 && currentSlide < 6) {
         moveToSlide(currentSlide + 1);
       }
       isDragging = false;
