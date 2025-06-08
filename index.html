@@ -153,6 +153,20 @@
     <p style="font-size: 0.75rem; color: #aaa;"><a href="/terms-of-use.html" style="color: #aaa; text-decoration: none;">Terms of Use</a></p>
   </div>
 
+  <style>
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease;
+      will-change: transform;
+    }
+  
+    .carousel-slide {
+      min-width: 100%;
+      flex-shrink: 0;
+    }
+  </style>
+
+  
   <script>
     const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
     document.getElementById('checkout-button').addEventListener('click', () => {
@@ -172,42 +186,57 @@
     }
 
     // Carousel Logic
-    const track = document.querySelector('.carousel-track');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.dot');
-    let currentSlide = 0;
+     const track = document.querySelector('.carousel-track');
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.dot');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
 
-    function moveToSlide(index) {
-      currentSlide = (index + slides.length) % slides.length;
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-      updateDots();
-    }
+  function moveToSlide(index) {
+    currentSlide = (index + totalSlides) % totalSlides;
+    const width = track.offsetWidth;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    updateDots();
+  }
 
-    function updateDots() {
-      dots.forEach((dot, i) => {
-        dot.style.opacity = i === currentSlide ? '1' : '0.4';
-      });
-    }
-
-    let startX = 0;
-    let dragging = false;
-
-    track.addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX;
-      dragging = true;
+  function updateDots() {
+    dots.forEach((dot, i) => {
+      dot.style.opacity = i === currentSlide ? '1' : '0.4';
     });
+  }
 
-    track.addEventListener('touchend', e => {
-      if (!dragging) return;
-      const endX = e.changedTouches[0].clientX;
-      const deltaX = endX - startX;
-      if (Math.abs(deltaX) > 50) {
-        moveToSlide(currentSlide + (deltaX < 0 ? 1 : -1));
+  // Swipe handling
+  let startX = null;
+  let isSwiping = false;
+
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isSwiping = true;
+  });
+
+  track.addEventListener('touchmove', (e) => {
+    if (!isSwiping || startX === null) return;
+
+    const deltaX = e.touches[0].clientX - startX;
+
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX < 0) {
+        moveToSlide(currentSlide + 1);
+      } else {
+        moveToSlide(currentSlide - 1);
       }
-      dragging = false;
-    });
+      startX = null;
+      isSwiping = false;
+    }
+  });
 
-    moveToSlide(0);
-  </script>
+  track.addEventListener('touchend', () => {
+    startX = null;
+    isSwiping = false;
+  });
+
+  window.addEventListener('resize', () => moveToSlide(currentSlide));
+  moveToSlide(0);
+</script>
 </body>
 </html>
