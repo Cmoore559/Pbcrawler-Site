@@ -265,10 +265,11 @@
     const deltaX = e.touches[0].clientX - startX;
     if (Math.abs(deltaX) > 50) {
       if (deltaX > 0 && currentSlide > 0) {
-        moveToSlide(currentSlide - 1);
-      } else if (deltaX < 0 && currentSlide < 6) {
-        moveToSlide(currentSlide + 1);
+        currentSlide--;
+      } else if (deltaX < 0 && currentSlide < track.children.length - 1) {
+        currentSlide++;
       }
+      moveToSlide(currentSlide);
       isDragging = false;
     }
   });
