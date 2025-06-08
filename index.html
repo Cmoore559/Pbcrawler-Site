@@ -150,3 +150,74 @@
       <a href="mailto:chris@pbcrawler.com"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/new-post.png" alt="Email" /></a>
       <a href="tel:+15593673743"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/phone.png" alt="Call" /></a>
     </div>
+    <p style="font-size: 0.75rem; color: #aaa;"><a href="/terms-of-use.html" style="color: #aaa; text-decoration: none;">Terms of Use</a></p>
+  </div>
+
+  
+  <script>
+    const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
+    document.getElementById('checkout-button').addEventListener('click', () => {
+      fetch('https://your-server.com/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+      .then(res => res.json())
+      .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
+      .catch(err => console.error(err));
+    });
+
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id)?.classList.add('active');
+    }
+
+    // Carousel Logic
+      const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    function moveToSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      const offset = -currentSlide * 100;
+      track.style.transform = translateX(${offset}%);
+      updateDots();
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.style.opacity = i === currentSlide ? '1' : '0.4';
+      });
+    }
+
+    let startX = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.touches[0].clientX - startX;
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX < 0) moveToSlide(currentSlide + 1);
+        else moveToSlide(currentSlide - 1);
+        isDragging = false;
+      }
+    });
+
+    track.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('resize', () => moveToSlide(currentSlide));
+    moveToSlide(0);
+
+
+</script>
+</body>
+</html>
