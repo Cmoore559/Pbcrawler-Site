@@ -51,19 +51,6 @@
       margin: 0 2px;
       transition: all 0.2s ease-in-out;
     }
-    nav a::after {
-      content: "";
-      display: block;
-      height: 3px;
-      background-color: #DB3B64;
-      transition: transform 0.3s ease;
-      transform: scaleX(0);
-      transform-origin: left;
-      margin-top: 3px;
-    }
-    nav a:hover::after {
-      transform: scaleX(1);
-    }
     nav a:hover {
       background-color: #DB3B64;
       color: black;
@@ -117,9 +104,11 @@
     <a href="#" onclick="showPage('highlights')">Highlights</a>
     <a href="#" onclick="showPage('faq')">FAQ</a>
   </nav>
+
   <section id="home" class="page active">
     <img class="hero-poster" src="gorilla-poster.png" alt="PBcrawler Promo Poster" onerror="this.style.display='none'" />
   </section>
+
   <section id="buy-ticket" class="page">
     <div style="text-align: center; padding: 2rem 1rem 1.5rem;">
       <img src="booking-info-block.png" alt="Booking Info" style="max-width: 400px; width: 100%; display: block; margin: 0 auto 1.5rem;" />
@@ -127,11 +116,12 @@
       <p style="margin-top: 1rem; font-size: 0.8rem; color: #aaa;">Not responsible for bad decisions made en route.</p>
     </div>
   </section>
+
   <section id="highlights" class="page">
     <div style="text-align: center; padding-top: 2rem;">
       <h2 style="font-family: 'Bebas Neue', cursive; font-size: 1.8rem; color: #DB3B64;">Highlights from the Bus</h2>
     </div>
-    <div class="carousel" style="position: relative; max-width: 90%; margin: 2rem auto; overflow: hidden; touch-action: pan-y;">
+    <div class="carousel" style="position: relative; max-width: 90%; margin: 2rem auto; overflow: hidden;">
       <div class="carousel-track" style="display: flex; transition: transform 0.4s ease;">
         <div class="carousel-slide" style="min-width: 100%;"><img src="highlights1.png" alt="Highlight 1" style="width: 100%; border-radius: 8px;" /></div>
         <div class="carousel-slide" style="min-width: 100%;"><img src="highlights2.png" alt="Highlight 2" style="width: 100%; border-radius: 8px;" /></div>
@@ -153,6 +143,7 @@
     </div>
     <p style="text-align:center; margin-top: 1rem;"><a href="mailto:chris@pbcrawler.com" style="color:#DB3B64;">Submit your ride pics or videos</a></p>
   </section>
+
   <section id="faq" class="page">
     <div class="faq">
       <div class="faq-item"><div class="faq-question">Do I need to be 21+ to ride?</div><div class="faq-answer">Yup. IDs checked before boarding.</div></div>
@@ -160,6 +151,7 @@
       <div class="faq-item"><div class="faq-question">Can I get a refund?</div><div class="faq-answer">Refunds available up to 24 hours before your scheduled ride.</div></div>
     </div>
   </section>
+
   <section id="route" class="page">
     <div style="text-align: center; padding: 2rem 1rem;">
       <h2 style="font-family: 'Bebas Neue', cursive; color: #DB3B64; font-size: 1.8rem;">Route Map</h2>
@@ -167,6 +159,7 @@
       <p style="color: #aaa; font-size: 0.85rem;">Pickup and return routes shown. Subject to change.</p>
     </div>
   </section>
+
   <div class="footer" style="background-color: #000; padding: 1.2rem 0 1.5rem; margin: 0; text-align: center; border-top: 4px solid #DB3B64;">
     <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.2rem; margin-top: 0.5rem;">
       <a href="https://instagram.com/ridepbcrawler" target="_blank"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/instagram-new.png" alt="Instagram" style="width: 30px; height: 30px;" /></a>
@@ -175,6 +168,7 @@
     </div>
     <p style="font-size: 0.75rem; color: #aaa;"><a href="/terms-of-use.html" style="color: #aaa; text-decoration: none;">Terms of Use</a></p>
   </div>
+
   <script src="https://js.stripe.com/v3/"></script>
   <script>
     const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
@@ -195,7 +189,7 @@
       if (target) target.classList.add('active');
     }
 
-    // Carousel Logic
+    // Carousel logic
     const track = document.querySelector('.carousel-track');
     const slides = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.dot');
@@ -204,8 +198,7 @@
 
     function moveToSlide(index) {
       currentSlide = (index + totalSlides) % totalSlides;
-      const offset = -currentSlide * 100;
-      track.style.transform = `translateX(${offset}%)`;
+      track.style.transform = `translateX(-${100 * currentSlide}%)`;
       updateDots();
     }
 
@@ -216,28 +209,21 @@
     }
 
     let startX = 0;
-    let isDragging = false;
 
     track.addEventListener('touchstart', (e) => {
-      isDragging = true;
       startX = e.touches[0].clientX;
     });
 
-    track.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      const deltaX = e.touches[0].clientX - startX;
+    track.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const deltaX = endX - startX;
+
       if (Math.abs(deltaX) > 50) {
         if (deltaX < 0) moveToSlide(currentSlide + 1);
         else moveToSlide(currentSlide - 1);
-        isDragging = false;
       }
     });
 
-    track.addEventListener('touchend', () => {
-      isDragging = false;
-    });
-
-    window.addEventListener('resize', () => moveToSlide(currentSlide));
     moveToSlide(0);
   </script>
 </body>
