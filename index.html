@@ -196,60 +196,62 @@
 
   <!-- ====== JAVASCRIPT ====== -->
   <script>
-  // === STRIPE CHECKOUT ===
-  const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
+  document.addEventListener('DOMContentLoaded', function () {
+    // === STRIPE CHECKOUT ===
+    const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
 
-  document.getElementById('checkout-button').addEventListener('click', () => {
-    fetch('https://your-server.com/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
-    })
-    .then(res => res.json())
-    .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
-    .catch(err => console.error(err));
-  });
-
-  // === PAGE SWITCHING LOGIC ===
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id)?.classList.add('active');
-  }
-
-  // === CAROUSEL SETUP ===
-  const track = document.querySelector('.carousel-track');
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.dot');
-  const totalSlides = slides.length;
-  let currentSlide = 0;
-
-  // === CAROUSEL NAVIGATION ===
-  function moveToSlide(index) {
-    currentSlide = (index + totalSlides) % totalSlides;
-    const offset = -currentSlide * 100;
-    track.style.transform = `translateX(${offset}%)`;
-    updateDots();
-  }
-
-  function updateDots() {
-    dots.forEach((dot, i) => {
-      dot.style.opacity = i === currentSlide ? '1' : '0.4';
+    document.getElementById('checkout-button').addEventListener('click', () => {
+      fetch('https://your-server.com/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      })
+      .then(res => res.json())
+      .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
+      .catch(err => console.error(err));
     });
-  }
-// === ARROW BUTTON EVENTS ===
-document.getElementById('prev-slide')?.addEventListener('click', () => {
-  moveToSlide(currentSlide - 1);
-});
 
-document.getElementById('next-slide')?.addEventListener('click', () => {
-  moveToSlide(currentSlide + 1);
-});
+    // === PAGE SWITCHING LOGIC ===
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id)?.classList.add('active');
+    }
 
-  // === WINDOW RESIZE LISTENER ===
-  window.addEventListener('resize', () => moveToSlide(currentSlide));
+    // === CAROUSEL SETUP ===
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
 
-  // === INITIALIZE CAROUSEL POSITION ===
-  moveToSlide(0);
+    function moveToSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      const offset = -currentSlide * 100;
+      track.style.transform = `translateX(${offset}%)`;
+      updateDots();
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.style.opacity = i === currentSlide ? '1' : '0.4';
+      });
+    }
+
+    // === ARROW BUTTON EVENTS ===
+    document.getElementById('prev-slide')?.addEventListener('click', () => {
+      moveToSlide(currentSlide - 1);
+    });
+
+    document.getElementById('next-slide')?.addEventListener('click', () => {
+      moveToSlide(currentSlide + 1);
+    });
+
+    // === WINDOW RESIZE LISTENER ===
+    window.addEventListener('resize', () => moveToSlide(currentSlide));
+
+    // === INITIALIZE CAROUSEL POSITION ===
+    moveToSlide(0);
+  });
 </script>
 </body>
 </html>
