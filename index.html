@@ -45,35 +45,38 @@
     }
     /* ==== crayon-style nav buttons ==== */
      /* ==== Crayon-style nav buttons (fixed, non-shifting) ==== */
-    nav a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;               /* ← keep ’em at full width */
-      height: 50px;
-      padding: 0 1.2rem;
-      background: url('crayon-scribble.png') no-repeat center center;
-      background-size: contain;
-      font-family: 'Bebas Neue', cursive;
-      font-size: 1.2rem;
-      line-height: normal;
-      white-space: nowrap;
-      text-transform: uppercase;
-      color: #fff;
-      text-decoration: none;
-      border: none;
-    }
-    
-    /* hover feedback */
-    nav a:hover {
-      opacity: 0.8;
-    }
-    
-    /* persistent “current page” state */
-    nav a.active {
-      color: #000;                        /* black text stays on the active tab */
-      opacity: 1;                         
-    }
+    /* ====== Crayon-style buttons ====== */
+nav a {
+  display: inline-flex;            
+  align-items: center;             
+  justify-content: center;         
+  flex-shrink: 1;                  /* let them shrink if needed */
+  padding: 0 0.6rem;               /* slimmer side padding */
+  height: 45px;                    /* match your PNG’s natural height */
+  background: url('crayon-scribble.png') no-repeat center center;
+  background-size: contain;        /* always show the full PNG */
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1rem;                 /* slightly smaller text */
+  line-height: 1.1;                
+  text-transform: uppercase;
+  white-space: normal;             /* allow words to wrap if they must */
+  text-align: center;              
+  color: #fff;                     
+  text-decoration: none;
+  border: none;                    
+  margin: 0;                       
+}
+
+/* ====== Hover feedback ====== */
+nav a:hover {
+  opacity: 0.8;
+}
+
+/* ====== Active/current page ====== */
+nav a.active {
+  color: #000;                     /* black text on the current tab */
+  opacity: 1;                      
+}
         .page { display: none; }
         .page.active { display: block; }
         .hero-poster {
