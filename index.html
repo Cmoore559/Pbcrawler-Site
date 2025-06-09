@@ -32,44 +32,47 @@
       object-fit: cover;
       display: block;
     }
-    /* ====== Main navbar ====== */
     nav {
+      background-color: #000;
+      padding: 0.6rem;
       display: flex;
-      justify-content: center;
-      gap: 0.9rem; 
-      align-items: center;
-      padding: 0.4rem 0;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1rem;
+      border-top: 4px solid #DB3B64;
+      border-bottom: 4px solid #DB3B64;
     }
-
-    /* ====== Crayon-style buttons, full-height PNG ====== */
+    /* ==== crayon-style nav buttons ==== */
+     /* ==== Crayon-style nav buttons (fixed, non-shifting) ==== */
     nav a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 1;                  /* let them squeeze a bit if needed */
-      height: 60px;                    /* ↑ bigger height → bigger scribble */
-      padding: 0 0.5rem;               /* side padding for text breathing room */
+      flex-shrink: 0;               /* ← keep ’em at full width */
+      height: 50px;
+      padding: 0 1.2rem;
       background: url('crayon-scribble.png') no-repeat center center;
-      background-size: auto 100%;      /* scale to 100% of the button’s height */
+      background-size: contain;
       font-family: 'Bebas Neue', cursive;
-      font-size: 1.1rem;               /* slightly larger text */
+      font-size: 1.2rem;
       line-height: normal;
-      text-transform: uppercase;
       white-space: nowrap;
+      text-transform: uppercase;
       color: #fff;
       text-decoration: none;
       border: none;
     }
     
-    /* subtle hover feedback */
+    /* hover feedback */
     nav a:hover {
       opacity: 0.8;
     }
     
-    /* active/current page state */
+    /* persistent “current page” state */
     nav a.active {
-      color: #000;                     /* black text stays on the current tab */
-      opacity: 1;
+      color: #000;                        /* black text stays on the active tab */
+      opacity: 1;                         
     }
         .page { display: none; }
         .page.active { display: block; }
