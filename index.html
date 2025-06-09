@@ -44,24 +44,28 @@
       border-bottom: 4px solid #DB3B64;
     }
     /* ==== crayon-style nav buttons ==== */
-    nav a {
-      position: relative;
-      display: inline-block;
-      margin: 0 0.5rem;
-      padding: 0.5rem 1rem;
-      font-family: 'Bebas Neue', cursive;
-      font-size: 1rem;
-      text-transform: uppercase;
-      color: #fff;
-      text-decoration: none;
-      background-image: url('crayon-scribble.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-    }
-    nav a:hover {
-      opacity: 0.8;  /* subtle feedback on hover */
-    }
+      /* ——— Crayon‐style nav buttons, full PNG showing ——— */
+      nav a {
+        display: inline-flex;            /* center text inside */
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;                 /* left/right padding */
+        height: 40px;                    /* match your PNG’s natural height */
+        background: url('crayon-scribble.png') no-repeat center center;
+        background-size: contain;        /* show the entire PNG */
+        font-family: 'Bebas Neue', cursive;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+        border: none;                    /* remove any old borders */
+      }
+      nav a:hover {
+        opacity: 0.8;                    /* subtle feedback */
+      }
+      nav a.active {
+        opacity: 1;                      /* keep active fully opaque */
+      }
     .page { display: none; }
     .active { display: block; }
     .hero-poster {
