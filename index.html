@@ -250,9 +250,16 @@
 
   // === PAGE SWITCHING LOGIC ===
   function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id)?.classList.add('active');
-  }
+  // 1) swap pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  // 2) update nav buttons
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  // pick the link whose onclick matches our id, then add the active class
+  const link = document.querySelector(`nav a[onclick="showPage('${id}')"]`);
+  if (link) link.classList.add('active');
+}
 
   // === CAROUSEL SETUP ===
   const track = document.querySelector('.carousel-track');
