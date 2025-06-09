@@ -46,28 +46,35 @@
     /* ==== crayon-style nav buttons ==== */
          /* ——— Crayon-style nav buttons (bigger BG + text) ——— */
     nav a {
-      display: inline-flex;
+      display: inline-flex;               /* center text inside the scribble */
       align-items: center;
       justify-content: center;
-      height: 50px;                       /* ↑ bump this from 40px */
-      padding: 0 1.2rem;                  /* a bit more side padding */
+      height: 50px;                       /* matches your PNG height */
+      padding: 0 1.2rem;                  /* left/right padding */
       background: url('crayon-scribble.png') no-repeat center center;
-      background-size: auto 100%;         /* scale the PNG to fill the new height */
+      background-size: auto 100%;         /* full scrubble shows, scaled to height */
       font-family: 'Bebas Neue', cursive;
-      font-size: 0.9rem;                  /* ↑ increase text size */
+      font-size: 1.2rem;                  /* nice legible size */
+      line-height: normal;                /* keep text centered */
       text-transform: uppercase;
-      color: #fff;
+      color: #fff;                        /* default white text */
       text-decoration: none;
-      border: none;
+      border: none;                       /* ditch any old box borders */
     }
     
+    /* hover – subtle fade */
     nav a:hover {
       opacity: 0.8;
     }
     
+    /* while you’re actually pressing it */
+    nav a:active {
+      color: #000;                        /* black text on click */
+    }
+    
+    /* persistent “current page” state */
     nav a.active {
-      opacity: 1;
-      color: #000;     /* turn the text black when “active” */
+      color: #000;                        /* stays black on the active tab */
     }
     .page { display: none; }
     .active { display: block; }
