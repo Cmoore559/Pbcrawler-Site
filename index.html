@@ -46,21 +46,22 @@
     /* ==== crayon-style nav buttons ==== */
      /* ==== Crayon-style nav buttons (fixed, non-shifting) ==== */
     nav a {
-      display: inline-flex;               
-      align-items: center;                
-      justify-content: center;            
-      height: 50px;                       /* adjust if you bump the PNG height */
-      padding: 0 1.2rem;                  
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;               /* ← keep ’em at full width */
+      height: 50px;
+      padding: 0 1.2rem;
       background: url('crayon-scribble.png') no-repeat center center;
-      background-size: contain;           /* show the entire PNG */
+      background-size: contain;
       font-family: 'Bebas Neue', cursive;
-      font-size: 1.2rem;                  
-      line-height: normal;                
-      white-space: nowrap;                /* never wrap text */
+      font-size: 1.2rem;
+      line-height: normal;
+      white-space: nowrap;
       text-transform: uppercase;
-      color: #fff;                        
+      color: #fff;
       text-decoration: none;
-      border: none;                       
+      border: none;
     }
     
     /* hover feedback */
@@ -74,7 +75,7 @@
       opacity: 1;                         
     }
         .page { display: none; }
-        .active { display: block; }
+        .page.active { display: block; }
         .hero-poster {
           width: 100%;
           display: block;
