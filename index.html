@@ -44,28 +44,30 @@
       border-bottom: 4px solid #DB3B64;
     }
     /* ==== crayon-style nav buttons ==== */
-      /* ——— Crayon‐style nav buttons, full PNG showing ——— */
-      nav a {
-        display: inline-flex;            /* center text inside */
-        align-items: center;
-        justify-content: center;
-        padding: 0 1rem;                 /* left/right padding */
-        height: 40px;                    /* match your PNG’s natural height */
-        background: url('crayon-scribble.png') no-repeat center center;
-        background-size: contain;        /* show the entire PNG */
-        font-family: 'Bebas Neue', cursive;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        color: #fff;
-        text-decoration: none;
-        border: none;                    /* remove any old borders */
-      }
-      nav a:hover {
-        opacity: 0.8;                    /* subtle feedback */
-      }
-      nav a.active {
-        opacity: 1;                      /* keep active fully opaque */
-      }
+         /* ——— Crayon-style nav buttons (bigger BG + text) ——— */
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;                       /* ↑ bump this from 40px */
+      padding: 0 1.2rem;                  /* a bit more side padding */
+      background: url('crayon-scribble.png') no-repeat center center;
+      background-size: auto 100%;         /* scale the PNG to fill the new height */
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;                  /* ↑ increase text size */
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      border: none;
+    }
+    
+    nav a:hover {
+      opacity: 0.8;
+    }
+    
+    nav a.active {
+      opacity: 1;
+    }
     .page { display: none; }
     .active { display: block; }
     .hero-poster {
