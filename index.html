@@ -43,20 +43,24 @@
       border-top: 4px solid #DB3B64;
       border-bottom: 4px solid #DB3B64;
     }
+    /* ==== crayon-style nav buttons ==== */
     nav a {
-      width: 80px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #DB3B64;
+      position: relative;
+      display: inline-block;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: #fff;
       text-decoration: none;
-      border: 2px solid #DB3B64;
-      font-size: 0.9rem;
+      background-image: url('crayon-scribble.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
     }
     nav a:hover {
-      background-color: #DB3B64;
-      color: black;
+      opacity: 0.8;  /* subtle feedback on hover */
     }
     .page { display: none; }
     .active { display: block; }
