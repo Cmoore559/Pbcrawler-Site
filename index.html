@@ -155,7 +155,16 @@
   <section id="buy-ticket" class="page">
     <div style="text-align: center; padding: 0.5rem 1rem 1.5rem;">
       <img src="booking-info-block.png" style="max-width: 400px; width: 100%; display: block; margin: 0 auto 1.5rem;" alt="Booking Info" />
-      <button class="checkout-button" id="checkout-button">RESERVE YOUR SPOT</button>
+
+    <!-- ====== STRIPE PAYMENT LINK BUTTON ====== -->
+      <a
+        href="https://buy.stripe.com/test_5kQeVf9m9eYIb0RfYZcEw00"
+        class="checkout-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        RESERVE YOUR SPOT
+      </a>
       <p style="margin-top: 1rem; font-size: 0.8rem; color: #aaa;">Not responsible for bad decisions made en route.</p>
     </div>
   </section>
@@ -235,19 +244,6 @@
 
   <!-- ====== JAVASCRIPT ====== -->
   <script>
-  // === STRIPE CHECKOUT ===
-  const stripe = Stripe('pk_test_51RSmirRWqNW7pPSS4Acch6EShD5CWAsFhwwtIDPJYWTN7W94GkhLA8Gxz5PPXYsXDTUwnhyebHCGWFD1t56s9wbc00oLdZq9G0');
-
-  document.getElementById('checkout-button').addEventListener('click', () => {
-    fetch('https://your-server.com/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
-    })
-    .then(res => res.json())
-    .then(data => stripe.redirectToCheckout({ sessionId: data.sessionId }))
-    .catch(err => console.error(err));
-  });
 
   // === PAGE SWITCHING LOGIC ===
   function showPage(id) {
