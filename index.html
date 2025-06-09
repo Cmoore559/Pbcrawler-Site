@@ -44,45 +44,41 @@
       border-bottom: 4px solid #DB3B64;
     }
     /* ==== crayon-style nav buttons ==== */
-      /* ===== Crayon‐style nav buttons ===== */
+     /* ==== Crayon-style nav buttons (fixed, non-shifting) ==== */
     nav a {
-      display: inline-flex;               /* center text */
-      align-items: center;
-      justify-content: center;
-      height: 50px;                       /* match your PNG’s natural height */
-      padding: 0 1.2rem;                  /* space left/right */
+      display: inline-flex;               
+      align-items: center;                
+      justify-content: center;            
+      height: 50px;                       /* adjust if you bump the PNG height */
+      padding: 0 1.2rem;                  
       background: url('crayon-scribble.png') no-repeat center center;
-      background-size: contain;           /* show the entire scribble */
+      background-size: contain;           /* show the entire PNG */
       font-family: 'Bebas Neue', cursive;
-      font-size: 1.2rem;                  /* nice big text */
+      font-size: 1.2rem;                  
+      line-height: normal;                
+      white-space: nowrap;                /* never wrap text */
       text-transform: uppercase;
-      color: #fff;                        /* default white */
+      color: #fff;                        
       text-decoration: none;
-      border: none;                       /* remove any box */
-      overflow: visible;
+      border: none;                       
     }
     
-    /* hover: subtle fade */
+    /* hover feedback */
     nav a:hover {
       opacity: 0.8;
     }
     
-    /* while you’re pressing it: black text */
-    nav a:active {
-      color: #000 !important;
-    }
-    
-    /* persistent “current page” state: black text */
+    /* persistent “current page” state */
     nav a.active {
-      color: #000 !important;
-      opacity: 1;                         /* ensure full opacity */
+      color: #000;                        /* black text stays on the active tab */
+      opacity: 1;                         
     }
-    .page { display: none; }
-    .active { display: block; }
-    .hero-poster {
-      width: 100%;
-      display: block;
-    }
+        .page { display: none; }
+        .active { display: block; }
+        .hero-poster {
+          width: 100%;
+          display: block;
+        }
     .checkout-button {
       background-color: #DB3B64;
       color: white;
