@@ -44,37 +44,38 @@
       border-bottom: 4px solid #DB3B64;
     }
     /* ==== crayon-style nav buttons ==== */
-         /* ——— Crayon-style nav buttons (bigger BG + text) ——— */
+      /* ===== Crayon‐style nav buttons ===== */
     nav a {
-      display: inline-flex;               /* center text inside the scribble */
+      display: inline-flex;               /* center text */
       align-items: center;
       justify-content: center;
-      height: 50px;                       /* matches your PNG height */
-      padding: 0 1.2rem;                  /* left/right padding */
+      height: 50px;                       /* match your PNG’s natural height */
+      padding: 0 1.2rem;                  /* space left/right */
       background: url('crayon-scribble.png') no-repeat center center;
-      background-size: auto 100%;         /* full scrubble shows, scaled to height */
+      background-size: contain;           /* show the entire scribble */
       font-family: 'Bebas Neue', cursive;
-      font-size: 1.2rem;                  /* nice legible size */
-      line-height: normal;                /* keep text centered */
+      font-size: 1.2rem;                  /* nice big text */
       text-transform: uppercase;
-      color: #fff;                        /* default white text */
+      color: #fff;                        /* default white */
       text-decoration: none;
-      border: none;                       /* ditch any old box borders */
+      border: none;                       /* remove any box */
+      overflow: visible;
     }
     
-    /* hover – subtle fade */
+    /* hover: subtle fade */
     nav a:hover {
       opacity: 0.8;
     }
     
-    /* while you’re actually pressing it */
+    /* while you’re pressing it: black text */
     nav a:active {
-      color: #000;                        /* black text on click */
+      color: #000 !important;
     }
     
-    /* persistent “current page” state */
+    /* persistent “current page” state: black text */
     nav a.active {
-      color: #000;                        /* stays black on the active tab */
+      color: #000 !important;
+      opacity: 1;                         /* ensure full opacity */
     }
     .page { display: none; }
     .active { display: block; }
