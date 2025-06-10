@@ -110,16 +110,24 @@
       text-align: center;
       padding: 0.5rem 1rem 0.25rem;
     }
-        ./* after: less vertical gap between image and text */
+
+  /* BUY TICKET HEADER TIGHTENED */
     .buy-ticket-header {
       text-align: center;
-      /* top = 0.5rem, right/left = 1rem, bottom = 0.25rem */
-      padding: 0.5rem 1rem 0.25rem;
+      padding: 0.5rem 1rem 0;     /* keep top padding, zero bottom */
     }
+    .buy-ticket-header img {
+      display: block;
+      margin: 0 auto 0.25rem;     /* tiny 0.25rem gap under the gorilla */
+      width: 120px;               /* whatever size you prefer */
+      height: auto;
+    }
+
+    
+      /* BUY TICKET CONTENT TIGHTENED */
     .buy-ticket-content {
       text-align: center;
-      /* top = 0.25rem, right/left = 1rem, bottom = 2rem */
-      padding: 0.25rem 1rem 2rem;
+      padding: 0 1rem 2rem;        /* zero top padding, keep sides + bottom */
     }
     .buy-ticket-content h1 {
       /* tighten space above/below the headline */
