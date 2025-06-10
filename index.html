@@ -96,6 +96,55 @@
       cursor: pointer;
     }
 
+        /* ——— BUY TICKET PAGE STYLES ——— */
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.8rem;
+      color: #DB3B64;
+      text-align: center;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .buy-ticket-header {
+      text-align: center;
+      padding: 0.5rem 1rem;
+    }
+    .buy-ticket-header img {
+      width: 80px;
+      height: auto;
+    }
+    .buy-ticket-content {
+      text-align: center;
+      padding: 1rem;
+    }
+    .buy-ticket-content h1 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      color: #fff;
+      margin: 0.5rem 0;
+    }
+    .buy-ticket-content p {
+      font-family: Inter, sans-serif;
+      font-size: 1.1rem;
+      color: #eee;
+      margin: 0.5rem 0;
+    }
+    .buy-ticket-content .urgency {
+      color: #DB3B64;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+    .btn-book {
+      display: inline-block;
+      background-color: #DB3B64;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+ /* ——— Carousel Arrows ——— */
     .carousel-arrow {
       position: absolute;
       top: 50%;
@@ -153,22 +202,33 @@
 
   <!-- ====== BUY TICKET PAGE ====== -->
   <section id="buy-ticket" class="page">
-    <div style="text-align: center; padding: 0.5rem 1rem 1.5rem;">
-      <img src="booking-info-block.png" style="max-width: 400px; width: 100%; display: block; margin: 0 auto 1.5rem;" alt="Booking Info" />
+    <h2 class="section-title">Buy Ticket</h2>
 
-    <!-- ====== STRIPE PAYMENT LINK BUTTON ====== -->
+    <!-- 1 graphic element: pink gorilla -->
+    <div class="buy-ticket-header">
+      <img src="pink-gorilla.png" alt="PBcrawler gorilla mascot" />
+    </div>
+
+    <div class="buy-ticket-content">
+      <h1>$22 Round Trip — Thursday Nights</h1>
+      <p>
+        Leaves SDSU at <strong>8:30 PM / 9:30 PM</strong><br/>
+        Returns at <strong>1 AM / 2 AM</strong>
+      </p>
+      <p class="urgency">Reserve your seat — Bus fills fast</p>
+
+      <!-- HERO BOOK BUTTON (use your real Payment Link) -->
       <a
         href="https://buy.stripe.com/test_5kQeVf9m9eYIb0RfYZcEw00"
-        class="checkout-button"
+        class="btn-book"
         target="_blank"
         rel="noopener noreferrer"
       >
-        BOOK MY SPOT
+        Book My Spot
       </a>
-      <p style="margin-top: 1rem; font-size: 0.8rem; color: #aaa;">Not responsible for bad decisions made en route.</p>
     </div>
   </section>
-
+  
   <!-- ====== HIGHLIGHTS SECTION ====== -->
   <section id="highlights" class="page">
      <div style="text-align: center; padding-top: 0.5rem; max-width: 90%; margin: 0 auto;">
