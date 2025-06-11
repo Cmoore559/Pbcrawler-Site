@@ -111,17 +111,18 @@
       padding: 0.5rem 1rem 0.25rem;
     }
 
-  /* BUY TICKET HEADER TIGHTENED */
-    .buy-ticket-header {
-      text-align: center;
-      padding: 0.5rem 1rem 0;     /* keep top padding, zero bottom */
-    }
-    .buy-ticket-header img {
-      display: block;
-      margin: 0 auto 0.25rem;     /* tiny 0.25rem gap under the gorilla */
-      width: 200px;               /* whatever size you prefer */
-      height: auto;
-    }
+        /* BUY TICKET HEADER: no bottom‐gap */
+      .buy-ticket-header img {
+        display: block;
+        margin: 0 auto 0;      /* remove bottom margin entirely */
+        width: 200px;
+        height: auto;
+      }
+      
+      /* BUY TICKET TITLE: no top‐gap */
+      .buy-ticket-content h1 {
+        margin: 0;             /* remove both top & bottom margins */
+      }
 
     
       /* BUY TICKET CONTENT TIGHTENED */
