@@ -343,53 +343,49 @@
   <script>
 
   // === PAGE SWITCHING LOGIC ===
-  function showPage(id) {
-  // 1) swap pages
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+ // === PAGE SWITCHING LOGIC WITH HASH SUPPORT ===
+    function showPage(id) {
+      // 1) swap pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
 
-  // 2) update nav buttons
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  // pick the link whose onclick matches our id, then add the active class
-  const link = document.querySelector(`nav a[onclick="showPage('${id}')"]`);
-  if (link) link.classList.add('active');
-}
+      // 2) update nav buttons
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`nav a[onclick="showPage('${id}')"]`);
+      if (link) link.classList.add('active');
 
-  // === CAROUSEL SETUP ===
-  const track = document.querySelector('.carousel-track');
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.dot');
-  const totalSlides = slides.length;
-  let currentSlide = 0;
+      // 3) push the new hash (no reload)
+      window.location.hash = id;
+    }
 
-  // === CAROUSEL NAVIGATION ===
-  function moveToSlide(index) {
-    currentSlide = (index + totalSlides) % totalSlides;
-    const offset = -currentSlide * 100;
-    track.style.transform = `translateX(${offset}%)`;
-    updateDots();
-  }
-
-  function updateDots() {
-    dots.forEach((dot, i) => {
-      dot.style.opacity = i === currentSlide ? '1' : '0.4';
+    // === ON LOAD: pick up the hash or default to 'home' ===
+    document.addEventListener('DOMContentLoaded', () => {
+      const target = window.location.hash.slice(1) || 'home';
+      if (document.getElementById(target)) {
+        showPage(target);
+      } else {
+        showPage('home');
+      }
     });
-  }
-    
-  // === ARROW BUTTON EVENTS ===
-  document.getElementById('prev-slide').addEventListener('click', () => {
-    moveToSlide(currentSlide - 1);
-  });
-  
-  document.getElementById('next-slide').addEventListener('click', () => {
-    moveToSlide(currentSlide + 1);
-  });
 
-  // === WINDOW RESIZE LISTENER ===
-  window.addEventListener('resize', () => moveToSlide(currentSlide));
+    // === CAROUSEL SETUP AND NAVIGATION (unchanged) ===
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots   = document.querySelectorAll('.dot');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
 
-  // === INITIALIZE CAROUSEL POSITION ===
-  moveToSlide(0);
+    function moveToSlide(index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(${-currentSlide * 100}%)`;
+      dots.forEach((dot, i) => dot.style.opacity = i === currentSlide ? '1' : '0.4');
+    }
+
+    document.getElementById('prev-slide').addEventListener('click', () => moveToSlide(currentSlide - 1));
+    document.getElementById('next-slide').addEventListener('click', () => moveToSlide(currentSlide + 1));
+    window.addEventListener('resize', () => moveToSlide(currentSlide));
+    // initialize
+    moveToSlide(0);
 </script>
 </body>
 </html>
