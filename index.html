@@ -34,15 +34,20 @@
       display: block;
     }
     /* ——— Navbar container ——— */
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: #000;
-        padding: 0.6rem 0;
-        border-top: 4px solid #DB3B64;
-        border-bottom: 4px solid #DB3B64;
-      }
+      /* —— Navbar container —— */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #000;
+      padding: 0.6rem 0;
+      border-top: 4px solid #DB3B64;
+      border-bottom: 4px solid #DB3B64;
+    
+      /* ← add these two lines: keep the nav on top of everything */
+      position: relative;
+      z-index: 1000;
+    }
       
       /* ——— Crayon buttons (all 1/5 width, full-cover PNG) ——— */
       nav a {
